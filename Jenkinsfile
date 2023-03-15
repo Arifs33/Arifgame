@@ -9,7 +9,8 @@ pipeline {
   stages {
     stage('Deploy to Container-1') {
 	    steps {
-	      
+	       sh "sudo docker stop container-1"
+               sh "sudo docker rm container-1"
 	       sh "sudo docker volume create my-volume-1"
 	       sh "sudo cp /mnt/vol1/index.html /var/lib/docker/volumes/my-volume-1/_data"
 	       sh "chmod -R 777 /mnt/vol1/index.html"
