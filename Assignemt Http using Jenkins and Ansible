@@ -1,0 +1,6 @@
+cgreate one yaml file with playbook
+create on dev.inv file with hosts 
+like [dev]
+     ip of node ansible_user=nameofuser
+install ansible plugin
+and configure using global confg tools.
