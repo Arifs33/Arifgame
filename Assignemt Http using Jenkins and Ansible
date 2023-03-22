@@ -4,3 +4,23 @@ like [dev]
      ip of node ansible_user=nameofuser
 install ansible plugin
 and configure using global confg tools.
+
+
+pipeline 
+
+
+pipeline {
+  agent any
+  stages{
+      stage('git checkout'){
+          steps{
+            git 'https://github.com/Arifs33/Arifgame.git' 
+          }
+      }
+      stage('Ansible'){
+          steps{
+            ansiblePlaybook installation: 'ansible2', inventory: 'dev.inv', playbook: 'Jenkinsfile.yaml'  
+          }
+      }
+  }
+}
