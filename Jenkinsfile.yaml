@@ -1,6 +1,6 @@
 - hosts: dev
-  user: arif
   become: yes
+  user: arif
   connection: ssh
   gather_facts: yes
   
