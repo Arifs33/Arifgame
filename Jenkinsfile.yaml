@@ -1,21 +1,38 @@
-pipeline:
- agent:
-  any:
- stages:
-  - stage: "test stage"
-    steps:
-     -  hosts: dev
-        user: arif
-        become: yes
-        connection: ssh
-        gather_facts: yes
+pipeline {
+agent{
+label{
+		label "built-in"
+		customWorkspace "/mnt/data/pipeline"
+}
+}
+
+stages {
+
+		stage ("on master"){
+			steps {
+					-  hosts: dev
+                       user: arif
+                       become: yes
+                       connection: ssh
+                       gather_facts: yes
         
-        tasks:
+                       tasks:
         
-         - name: install httpd on servers
-           action: yum name=httpd state=present
-         - name: start httpd service
-           action: service name=httpd state=started
+                       - name: install httpd on servers
+                         action: yum name=httpd state=present
+                       - name: start httpd service
+                         action: service name=httpd state=started
            
-         - name: copy index.html file
-           action: copy src=index.html dest=/var/www/html
+                       - name: copy index.html file
+                         action: copy src=/mnt/data/pipeline/Arifgame/index.html dest=/var/www/html
+			}
+		
+		}
+		
+		
+		
+		}
+
+}
+
+
