@@ -1,0 +1,21 @@
+pipeline:
+ agent:
+  any:
+ stages:
+  - stage:"test stage"
+    steps:
+     -  hosts: deve
+        user: arif
+        become: yes
+        connection: ssh
+        gather_facts: yes
+        
+        tasks:
+        
+         - name: install httpd on servers
+           action: yum name=httpd state=present
+         - name: start httpd service
+           action: service name=httpd state=started
+           
+         - name: copy index.html file
+           action: copy src=index.html dest=/var/www/html
