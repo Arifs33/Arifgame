@@ -1,38 +1,24 @@
-pipeline {
-agent{
-label{
-		label "built-in"
-		customWorkspace "/mnt/data/pipeline"
-}
-}
+---   # yaml
 
-stages {
+      - hosts: dev
+        user: arif
+        become: yes
+        connection: ssh
+        gather_facts: yes
 
-		stage ("on master"){
-			steps {
-					-  hosts: dev
-                       user: arif
-                       become: yes
-                       connection: ssh
-                       gather_facts: yes
-        
-                       tasks:
-        
-                       - name: install httpd on servers
-                         action: yum name=httpd state=present
-                       - name: start httpd service
-                         action: service name=httpd state=started
-           
-                       - name: copy index.html file
-                         action: copy src=/mnt/data/pipeline/Arifgame/index.html dest=/var/www/html
-			}
-		
-		}
-		
-		
-		
-		}
+        tasks:
 
-}
+         - name: install httpd on servers
+           action: yum name=httpd state=present
+         - name: start httpd service
+           action: service name=httpd state=started
+         
+         - name: permission mnt
+           command: chmod -R 777 /mnt
+
+
+         - name: copy index.html
+           action:  copy src=/mnt/index.html dest=/var/www/html
+
 
 
