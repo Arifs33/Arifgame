@@ -1,19 +1,19 @@
-      - hosts: dev
-        user: arif
-        become: yes
-        connection: ssh
-        gather_facts: yes
-
-        tasks:
-
-         - name: install httpd on servers
-           action: yum name=httpd state=present
-         - name: start httpd service
-           action: service name=httpd state=started
+- hosts: dev
+  user: arif
+  become: yes
+  connection: ssh
+  gather_facts: yes
+  
+  tasks:
+  
+  - name: install httpd on servers
+    action: yum name=httpd state=present
+  - name: start httpd service
+    action: service name=httpd state=started
          
-         - name: permission mnt
-           command: chmod -R 777 /mnt
-
-
-         - name: copy index.html
-           action:  copy src=/mnt/index.html dest=/var/www/html
+  - name: permission mnt
+    command: chmod -R 777 /mnt
+    
+    
+  - name: copy index.html
+    action:  copy src=/mnt/index.html dest=/var/www/html
